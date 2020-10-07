@@ -21,6 +21,7 @@ LedControl lc=LedControl(4,6,5,1);
 
 //DEFINES AND GENERAL
 //--------------------------------------------------------------------
+int os_mode = 0; // mode of the program, initial menu state is 0, snake game is 1
 //which peripherals are used?
 bool joystick = true;
 bool lcdscreen = true;
@@ -28,9 +29,7 @@ bool matrix = true;
 
 //set their initial values
 #define lcd_length 16
-#define lcd_depth 1 //0 is row one
-#define matrix_module_length 8
-#define matrix_module_height 8
+#define lcd_depth 2 //0 is row one
 
 // Arduino pin numbers for joystick
 const int SW_pin = 2; // digital pin connected to switch output
@@ -41,6 +40,8 @@ const int Y_pin = 1; // analog pin connected to Y output
 unsigned long delaytime1=500;
 unsigned long delaytime2=50;
 
+String games[2]={"Snake", "Tetris"};
+int menu_page = 0; // menu page displaying the games, 0 initial -> snake
 
 //--------------------------------------------------------------------
 void init_peripherals(){
@@ -76,6 +77,7 @@ void setup() {
   //init_menu();
 
 }
+
 
 void writeArduinoOnMatrix() {
   /* here is the data for the characters */
@@ -138,11 +140,12 @@ void writeArduinoOnMatrix() {
   delay(delaytime1);
 }
 
+void resultspage(){
+  
+}
 void loop() {
  // put your main code here, to run repeatedly:
- //getinputs();
- //run_menu();
- // Print a message to the LCD.
-      lcd.print("Booting12!");
-        writeArduinoOnMatrix();
+ if (os_mode==0){run_menu();}
+ if (os_mode==1){startprogram();}
+ if (os_mode==2){resultspage();}
 }
