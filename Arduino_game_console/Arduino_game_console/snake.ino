@@ -1,16 +1,61 @@
 int headpos = 2; // starting at pos. 2
+int actives[64];
 int frame =0;
+bool start = true;
 void spawnfood(){
   int spawnfield = random(63);
 }
-//the display shall be used from 0->63 as values for the different bits which we activate
+double power(double base, double power)
+{
+    return exp(log(base)*power);
+}
 
+//the display shall be used from 0->63 as values for the different bits which we activate
+void displayactives(){
+  int row = 0;
+  byte showbyte = B00000000;
+  for(int i=0;i<64;i++){
+    int j = i;
+      if(i<=15 && i>7){j = j-8; row=1;}
+      if(i<=23 && i>15){j= j-16;row=2;}
+      if(i<=31 && i>23){ j= j-24;row=3;}
+      if(i<=39 && i>31){ j= j-32;row=4;}
+      if(i<=47 && i>39){ j= j-40;row=5;}
+      if(i<=55 && i>47){ j= j-48;row=6;}
+      if(i<=63 && i>55){ j= j-55;row=7;}
+
+     int outputnumber= power(2.0,j);
+     if(j>1){//since POW FUNCTION floating point error
+      outputnumber++;
+     }
+     lcd.clear();
+     lcd.print(j);
+     lcd.print("    ");
+     lcd.print(outputnumber);
+    lc.setRow(0,row,outputnumber);
+    delay(1500);
+    lc.clearDisplay(0);
+    delay(1500);
+
+  }
+}
 void getframe(){
   
 }
+void clearactives(){
+  for(int i=0; i<64;i++){
+    actives[i]=i;
+  }
+}
 void gamerunning(){
+  if(start){
+  clearactives();
+  displayactives();
+ // setstart();
+  start=false;
+  }
   getframe();
-  displayframe();
+  //displayframe();
 }
 void startanimation(){
   byte bigO[2]={B11111111,B10000001};

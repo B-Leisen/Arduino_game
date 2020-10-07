@@ -1,5 +1,7 @@
 //LIBRARIES
 //--------------------------------------------------------------------
+#include <math.h>
+
 #include <ArduinoComponents.h>
 #include <LiquidCrystal.h>
 #include "SR04.h"
