@@ -3,7 +3,7 @@ int lasthead =2;
 int actives[64];
 int frame =0;
 int food;
-int bites = 0;
+int points = 0;
 bool nofood = true;
 String lastmove="left";
 bool start = true;
@@ -134,9 +134,9 @@ bool spawnColl(int pos){
 void spawnfood(){
   int spawnpos = 0;
   if(nofood){
-   spawnpos = random(64);
+   spawnpos = random(63)+1;
    while(spawnColl(spawnpos)){
-    spawnpos = random(64);
+    spawnpos = random(63)+1;
    }
   food = spawnpos;
   nofood=false;
@@ -144,7 +144,7 @@ void spawnfood(){
 }
 void eat(){
   if(food==snake[0]){
-    bites++;
+    points++;
     nofood=true;
     for(int i=0; i<64; i++){
       if(i==63){
@@ -169,15 +169,24 @@ void leavegame(){
       lcd.clear();
       lcd.print("resume game");
     }
-    delay(10000);
   }
+ delay(1000);
+ lcd.clear();
+      lcd.print("3");
+       delay(1000);
+ lcd.clear();
+      lcd.print("2");
+       delay(1000);
+ lcd.clear();
+      lcd.print("1");
+             delay(1000);
 }
 
 void lostgame(){
     lcd.clear();
     lcd.print("lost the game : ");
     lcd.setCursor(0, 1);
-    lcd.print(bites);
+    lcd.print(points);
     lcd.print(" points");
     os_mode=0;
     while(1){
@@ -205,7 +214,7 @@ void clearactives(){
 void gamerunning(){
   if(start){
   clearactives();
-  bites=0;
+  points=0;
   lastmove="left";
   setsnake();
   start=false;

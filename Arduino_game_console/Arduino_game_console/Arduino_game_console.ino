@@ -42,7 +42,7 @@ const int Y_pin = 1; // analog pin connected to Y output
 unsigned long delaytime1=500;
 unsigned long delaytime2=50;
 
-String games[2]={"Snake", "Tetris"};
+String games[3]={"Snake", "Tetris", "Space"};
 int menu_page = 0; // menu page displaying the games, 0 initial -> snake
 
 //--------------------------------------------------------------------
